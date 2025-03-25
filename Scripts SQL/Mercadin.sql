@@ -60,8 +60,8 @@ FOREIGN KEY(Codproduto) REFERENCES Produto (Codproduto)
 
 ---------------------------------------------------------------------------
 
--- DML (Linguagem de Manpulação de Dados) --
--- É um conjunto de instruções usada nas consultas e modificações dos dados armazenados nas tabelas do banco de dados --
+-- DML (Linguagem de ManpulaÃ§Ã£o de Dados) --
+-- Ã‰ um conjunto de instruÃ§Ãµes usada nas consultas e modificaÃ§Ãµes dos dados armazenados nas tabelas do banco de dados --
 
 Insert into marca(codmarca,NomeMarca) values(1, 'Coca-Cola')
 Insert into marca(codmarca,NomeMarca) values(2, 'Poty')
@@ -74,7 +74,7 @@ Insert into Cliente(CodCliente, Nome, CPF_CNPJ, endereco, email)
 values(1, 'Alessandro Sandrini', '123456', 'rua xxxx', 'alessandro@terra.com.br')
 
 Insert into Cliente(CodCliente, Nome, CPF_CNPJ, endereco, email)
-values(2, 'José da silva', '1234565', 'rua eeee', 'jose@terra.com.br')
+values(2, 'JosÃ© da silva', '1234565', 'rua eeee', 'jose@terra.com.br')
 
 Insert into Cliente(CodCliente, Nome, CPF_CNPJ, endereco, email)
 values(3, 'Ana Maria', '123456678', 'rua 22222', 'ana@terra.com.br')
@@ -91,7 +91,7 @@ Insert into Produto(Codproduto, descricao, preco, estoque, codmarca)
 values(3, 'Refrigerante de Guarana',9.25,150,2);
 
 Insert into Produto(Codproduto, descricao, preco, estoque, codmarca)
-values(4, 'Refrigerante de Limão',8.25,99,4);
+values(4, 'Refrigerante de LimÃ£o',8.25,99,4);
 
 select * from Produto
 
@@ -125,6 +125,7 @@ values(6,1,3,40,2001)
 
 select * from ItemPedido
 
+--Deleta uma tabela por completo--
 delete from ItemPedido
 
 --Deleta um item especifico--
@@ -134,8 +135,42 @@ delete from ItemPedido where Coditem = 6;
 
 select * from ItemPedido;
 
-delete from ItemPedido where Coditem = 3;
+--Deletando o Item '3'--
+delete from ItemPedido where Marca = 3;
 
+--Inserindo o item '3' novamente--
 insert into Marca(CodMarca, NomeMarca) values(3, 'cotuba');
 
 insert into Marca(CodMarca, NomeMarca) values(5, 'Arco Iris');
+
+select * from Marca;
+
+---------------------------------------------------------------------------
+
+select * from Cliente where CodCliente = 1;
+
+select * from Cliente where CodCliente > = 1 and CodCliente <=3;
+
+select Nome,endereco from Cliente where CodCliente between 1 and 3;
+
+select codcliente,Nome,endereco from Cliente where CodCliente not between 1 and 2;
+
+select * from Cliente;
+
+alter table Cliente add cidade varchar(50);
+
+---------------------------------------------------------------------------
+
+-- exercicios -- 
+-- 1 - Selecionar o codigo do pedido e a data no formato brasil --
+-- 2 - Selecionar todos os pedidos feito em 01/03/2022 --
+-- 3 - Selecionar todos os itens de pedido com qualidade vencida de 10 a 30 --
+
+select codpedido,codcliente,total,FORMAT(data, 'dd/MM/yyyy', 'en-BR') AS 'date' from Pedido;
+
+select codpedido,codcliente,total,FORMAT(data, 'dd/MM/yyyy', 'en-BR') AS 'date' from Pedido where FORMAT(data, 'dd/MM/yyyy', 'en-BR' ) = '03/01/2022';
+
+select codpedido,codcliente,total,data from Pedido where data = '03/01/2022';
+
+select * from ItemPedido where quantidade between 10 and 30;
+---------------------------------------------------------------------------
